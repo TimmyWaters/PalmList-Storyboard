@@ -7,23 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A50B742921E2B14300C5C149 /* MainListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B742821E2B14300C5C149 /* MainListViewController.swift */; };
+		A50B742B21E2B17700C5C149 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B742A21E2B17700C5C149 /* ListItemCell.swift */; };
+		A50B742D21E2B19F00C5C149 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B742C21E2B19F00C5C149 /* DetailViewController.swift */; };
 		A520296C21E2ADE8004C2415 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A520296B21E2ADE8004C2415 /* AppDelegate.swift */; };
-		A520296E21E2ADE8004C2415 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A520296D21E2ADE8004C2415 /* ViewController.swift */; };
 		A520297121E2ADE8004C2415 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A520296F21E2ADE8004C2415 /* Main.storyboard */; };
 		A520297421E2ADE8004C2415 /* PalmList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A520297221E2ADE8004C2415 /* PalmList.xcdatamodeld */; };
 		A520297621E2ADE8004C2415 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A520297521E2ADE8004C2415 /* Assets.xcassets */; };
 		A520297921E2ADE8004C2415 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A520297721E2ADE8004C2415 /* LaunchScreen.storyboard */; };
+		A5C2815221E2EEDC0087ADE0 /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C2815121E2EEDC0087ADE0 /* PriorityViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A50B742821E2B14300C5C149 /* MainListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListViewController.swift; sourceTree = "<group>"; };
+		A50B742A21E2B17700C5C149 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
+		A50B742C21E2B19F00C5C149 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A520296821E2ADE8004C2415 /* PalmList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PalmList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A520296B21E2ADE8004C2415 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A520296D21E2ADE8004C2415 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A520297021E2ADE8004C2415 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A520297321E2ADE8004C2415 /* PalmList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PalmList.xcdatamodel; sourceTree = "<group>"; };
 		A520297521E2ADE8004C2415 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A520297821E2ADE8004C2415 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A520297A21E2ADE8004C2415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5C2815121E2EEDC0087ADE0 /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				A520296B21E2ADE8004C2415 /* AppDelegate.swift */,
-				A520296D21E2ADE8004C2415 /* ViewController.swift */,
+				A50B742A21E2B17700C5C149 /* ListItemCell.swift */,
+				A50B742C21E2B19F00C5C149 /* DetailViewController.swift */,
+				A5C2815121E2EEDC0087ADE0 /* PriorityViewController.swift */,
+				A50B742821E2B14300C5C149 /* MainListViewController.swift */,
 				A520296F21E2ADE8004C2415 /* Main.storyboard */,
 				A520297521E2ADE8004C2415 /* Assets.xcassets */,
 				A520297721E2ADE8004C2415 /* LaunchScreen.storyboard */,
@@ -138,8 +147,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A50B742B21E2B17700C5C149 /* ListItemCell.swift in Sources */,
+				A50B742921E2B14300C5C149 /* MainListViewController.swift in Sources */,
+				A5C2815221E2EEDC0087ADE0 /* PriorityViewController.swift in Sources */,
+				A50B742D21E2B19F00C5C149 /* DetailViewController.swift in Sources */,
 				A520297421E2ADE8004C2415 /* PalmList.xcdatamodeld in Sources */,
-				A520296E21E2ADE8004C2415 /* ViewController.swift in Sources */,
 				A520296C21E2ADE8004C2415 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
