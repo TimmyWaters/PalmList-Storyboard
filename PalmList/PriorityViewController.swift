@@ -40,7 +40,7 @@ class PriorityViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        priorityChosen = priorityLevel[row]
+//        priorityChosen = priorityLevel[row]
         priorityIndex = row
     }
     
