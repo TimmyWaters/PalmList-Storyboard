@@ -96,5 +96,6 @@ class MainListViewController: UITableViewController, PriorityDelegate {
     
     func setPriorityLevel(level: Int) {
         print(level)
+        // Need to refigure protocol
     }
 }
