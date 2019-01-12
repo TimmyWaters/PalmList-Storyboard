@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol PriorityDelegate {
+    func setPriorityLevel(cell: ListItemCell)
+}
+
 
 class ListItemCell: UITableViewCell {
     
     @IBOutlet weak var priorityButton: UIButton!
     @IBOutlet weak var itemLabel: UILabel!
+    
+    var delegate: PriorityDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,5 +30,13 @@ class ListItemCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.delegate = nil
+    }
 
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        self.delegate?.setPriorityLevel(cell: self)
+    }
 }

@@ -13,11 +13,12 @@ var itemIndex = 0
 var testData: [String] = []
 var listItem: [(priorityLevel: Int, itemText: String)] = []
 
-class MainListViewController: UITableViewController, PriorityDelegate {
+class MainListViewController: UITableViewController, PriorityDelegate, SaveButtonDelegate{
+    
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     var itemTF = UITextField()
-    var setIndex = 0
+    var cellIndexPath = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,7 @@ class MainListViewController: UITableViewController, PriorityDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: defaultCell, for: indexPath) as! ListItemCell
         cell.itemLabel.text = testData[indexPath.row]
-        cell.priorityButton.addTarget(self, action: #selector(priorityButtonClicked(sender:)), for: .touchUpInside)
+        cell.delegate = self
         return cell
     }
     
@@ -82,9 +83,18 @@ class MainListViewController: UITableViewController, PriorityDelegate {
         tableView.insertRows(at: [indexPath], with: .left)
     }
     
-    @objc func priorityButtonClicked(sender: UIButton) {
-        print("Button pressed")
-//        performSegue(withIdentifier: "segue", sender: self)
+    func setPriorityLevel(cell: ListItemCell) {
+        guard let indexPath = self.tableView.indexPath(for: cell) else {
+            // Note, this shouldn't happen - how did the user tap on a button that wasn't on screen?
+            return
+        }
+        cellIndexPath = indexPath.row
+    }
+    
+    func saveButtonValue(value: String) {
+        let indexPath = IndexPath(row: cellIndexPath, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as! ListItemCell
+        cell.priorityButton.setTitle(value, for: .normal)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,10 +102,5 @@ class MainListViewController: UITableViewController, PriorityDelegate {
             let vc : PriorityViewController = segue.destination as! PriorityViewController
             vc.delegate = self
         }
-    }
-    
-    func setPriorityLevel(level: Int) {
-        print(level)
-        // Need to refigure protocol
     }
 }

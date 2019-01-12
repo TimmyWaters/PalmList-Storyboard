@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol PriorityDelegate {
-    func setPriorityLevel(level: Int)
+protocol SaveButtonDelegate {
+    func saveButtonValue(value: String)
 }
 
 class PriorityViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -18,13 +18,15 @@ class PriorityViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var savePriorityButton: UIButton!
     
     var priorityChosen = ""
-    var priorityIndex = 0
-    var delegate : PriorityDelegate?
+    var delegate: SaveButtonDelegate?
     
     let priorityLevel = ["1", "2", "3", "4", "5"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.priorityPicker.dataSource = self
+        self.priorityPicker.delegate = self
+        self.priorityPicker.selectRow(0, inComponent: 0, animated: true)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -40,15 +42,17 @@ class PriorityViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        priorityChosen = priorityLevel[row]
-        priorityIndex = row
+        priorityChosen = priorityLevel[row]
     }
     
-    @IBAction func savePriority(_ sender: UIButton) {
-        if delegate != nil {
-            delegate?.setPriorityLevel(level: priorityIndex)
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        if priorityChosen != "" {
+            self.delegate?.saveButtonValue(value: priorityChosen)
         }
-        
+        else {
+            priorityChosen = "1"
+            self.delegate?.saveButtonValue(value: priorityChosen)
+        }
         dismiss(animated: true)
     }
 }
