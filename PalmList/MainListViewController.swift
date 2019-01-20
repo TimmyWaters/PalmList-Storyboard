@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 var defaultCell = "defaultCell"
 var itemIndex = 0
 var testData: [String] = []
-var listItem: [(priorityLevel: Int, itemText: String)] = []
+var listItem: [(isChecked: Bool, priorityLevel: String, itemText: String)] = []
 
 class MainListViewController: UITableViewController, PriorityDelegate, SaveButtonDelegate{
     
@@ -19,10 +20,15 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
     
     var itemTF = UITextField()
     var cellIndexPath = 0
+    var priorityValue = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,7 +39,18 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
         let cell = tableView.dequeueReusableCell(withIdentifier: defaultCell, for: indexPath) as! ListItemCell
         cell.itemLabel.text = testData[indexPath.row]
         cell.delegate = self
+        cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(sender:)), for: .touchUpInside)
+        
         return cell
+    }
+    
+    @objc func checkButtonClicked(sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+        }
+        else {
+            sender.isSelected = true
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -42,7 +59,11 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(75)
+        return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -53,15 +74,16 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
     
     @IBAction func addButton(_ sender: UIBarButtonItem) {
         
-        let alertController = UIAlertController(title: "Alert title", message: "Message to display", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "PalmList", message: "Add an item to your list", preferredStyle: .alert)
         
-        alertController.addTextField { (itemTF) in itemTF.placeholder = "Enter your item" }
+        alertController.addTextField { (itemTF) in itemTF.placeholder = "Your item goes here" }
         
         // Create OK button
         let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
             
             // Code in this block will trigger when OK button tapped.
             guard let itemText = alertController.textFields?.first?.text else {return}
+            
             self.add(itemText)
             
         }
@@ -95,6 +117,7 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
         let indexPath = IndexPath(row: cellIndexPath, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! ListItemCell
         cell.priorityButton.setTitle(value, for: .normal)
+        priorityValue = value
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

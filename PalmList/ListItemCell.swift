@@ -17,6 +17,7 @@ class ListItemCell: UITableViewCell {
     
     @IBOutlet weak var priorityButton: UIButton!
     @IBOutlet weak var itemLabel: UILabel!
+    @IBOutlet weak var checkButton: UIButton!
     
     var delegate: PriorityDelegate?
     
