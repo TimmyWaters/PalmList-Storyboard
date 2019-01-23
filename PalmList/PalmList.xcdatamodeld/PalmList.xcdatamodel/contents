@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D39a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="PalmListItems" representedClassName="PalmListItems" syncable="YES" codeGenerationType="class">
+    <entity name="PalmListItem" representedClassName=".PalmListItem" syncable="YES">
         <attribute name="isChecked" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="itemText" attributeType="String" syncable="YES"/>
         <attribute name="priority" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="PalmListItems" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="PalmListItem" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

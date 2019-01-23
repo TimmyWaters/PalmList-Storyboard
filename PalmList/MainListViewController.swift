@@ -9,35 +9,66 @@
 import UIKit
 import CoreData
 
-var defaultCell = "defaultCell"
-var itemIndex = 0
-var testData: [String] = []
-var listItem: [(isChecked: Bool, priorityLevel: String, itemText: String)] = []
-
 class MainListViewController: UITableViewController, PriorityDelegate, SaveButtonDelegate{
     
     @IBOutlet weak var addButton: UIBarButtonItem!
-    
     var itemTF = UITextField()
+    
+    var listItems: [PalmListItem] = []
+    
     var cellIndexPath = 0
     var priorityValue = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
+        
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    
+//    func saveData() {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//
+//        let palmListItem = PalmListItem(context: context)
+//
+//        palmListItem.isChecked = true
+//        palmListItem.priority = "2"
+//        palmListItem.itemText = "Some stuff"
+//
+//        do {
+//            try context.save()
+//        }
+//        catch let err {
+//            print(err)
+//        }
+//    }
+    
+    func loadData() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = PalmListItem.createFetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        if let results = try? context.fetch(request) {
+            for result in results {
+                listItems.insert(result, at: 0)
+            }
+        }
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testData.count
+        return listItems.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: defaultCell, for: indexPath) as! ListItemCell
-        cell.itemLabel.text = testData[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) as! ListItemCell
+        cell.itemLabel.text = listItems[indexPath.row].itemText
         cell.delegate = self
         cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(sender:)), for: .touchUpInside)
         
@@ -54,7 +85,6 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        itemIndex = indexPath.row
         performSegue(withIdentifier: "segueID", sender: self)
     }
     
@@ -68,7 +98,30 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else {return}
-        testData.remove(at: indexPath.row)
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = PalmListItem.createFetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        var items: [PalmListItem] = []
+        
+        if let results = try? context.fetch(request) {
+            for result in results {
+                items.insert(result, at: 0)
+            }
+        }
+        context.delete(items[indexPath.row])
+        
+        do {
+            try context.save()
+        }
+        catch let err {
+            print(err)
+        }
+
+        listItems.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
@@ -84,9 +137,27 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
             // Code in this block will trigger when OK button tapped.
             guard let itemText = alertController.textFields?.first?.text else {return}
             
-            self.add(itemText)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
             
+            let palmListItem = PalmListItem(context: context)
+            
+            palmListItem.isChecked = false
+            palmListItem.priority = "1"
+            palmListItem.itemText = itemText
+            
+            do {
+                try context.save()
+            }
+            catch let err {
+                print(err)
+            }
+            
+            self.listItems.insert(palmListItem, at: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.insertRows(at: [indexPath], with: .left)
         }
+        
         alertController.addAction(OKAction)
         
         // Create Cancel button
@@ -97,12 +168,6 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
         
         // Present Dialog message
         self.present(alertController, animated: true, completion:nil)
-    }
-    
-    func add(_ newItem: String) {
-        testData.insert(newItem, at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .left)
     }
     
     func setPriorityLevel(cell: ListItemCell) {

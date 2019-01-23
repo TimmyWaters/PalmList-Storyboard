@@ -15,6 +15,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resultLabel.text = testData[itemIndex]
+        resultLabel.text = "Testing"
     }
 }
