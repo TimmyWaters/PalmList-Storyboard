@@ -68,6 +68,7 @@ class MainListViewController: UITableViewController, ListItemCellDelegate, SaveB
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) as! ListItemCell
         cell.checkButton.isSelected = listItems[indexPath.row].isChecked
+        cell.priorityButton.setTitle(listItems[indexPath.row].priority, for: .normal)
         cell.itemLabel.text = listItems[indexPath.row].itemText
         cell.delegate = self
         
@@ -172,29 +173,29 @@ class MainListViewController: UITableViewController, ListItemCellDelegate, SaveB
         let indexPath = IndexPath(row: cellIndexPath, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! ListItemCell
         
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//
-//        let request = PalmListItem.createFetchRequest()
-//        request.returnsObjectsAsFaults = false
-//
-//        var items: [PalmListItem] = []
-//
-//        if let results = try? context.fetch(request) {
-//            for result in results {
-//                items.insert(result, at: 0)
-//            }
-//        }
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+
+        let request = PalmListItem.createFetchRequest()
+        request.returnsObjectsAsFaults = false
+
+        var items: [PalmListItem] = []
+
+        if let results = try? context.fetch(request) {
+            for result in results {
+                items.insert(result, at: 0)
+            }
+        }
         
-//        items[indexPath.row].priority = value
+        items[indexPath.row].priority = value
         cell.priorityButton.setTitle(value, for: .normal)
         
-//        do {
-//            try context.save()
-//        }
-//        catch let err {
-//            print(err)
-//        }
+        do {
+            try context.save()
+        }
+        catch let err {
+            print(err)
+        }
         
         
     }
