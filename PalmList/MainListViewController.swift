@@ -57,7 +57,6 @@ class MainListViewController: UITableViewController, ListItemCellDelegate, SaveB
         if let results = try? context.fetch(request) {
             for result in results {
                 listItems.insert(result, at: 0)
-                print(result.isChecked)
             }
         }
     }
@@ -71,19 +70,9 @@ class MainListViewController: UITableViewController, ListItemCellDelegate, SaveB
         cell.checkButton.isSelected = listItems[indexPath.row].isChecked
         cell.itemLabel.text = listItems[indexPath.row].itemText
         cell.delegate = self
-//        cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(sender:)), for: .touchUpInside)
         
         return cell
     }
-    
-//    @objc func checkButtonClicked(sender: UIButton) {
-//        if sender.isSelected {
-//            sender.isSelected = false
-//        }
-//        else {
-//            sender.isSelected = true
-//        }
-//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "segueID", sender: self)
@@ -182,7 +171,32 @@ class MainListViewController: UITableViewController, ListItemCellDelegate, SaveB
     func saveButtonValue(value: String) {
         let indexPath = IndexPath(row: cellIndexPath, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! ListItemCell
+        
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//
+//        let request = PalmListItem.createFetchRequest()
+//        request.returnsObjectsAsFaults = false
+//
+//        var items: [PalmListItem] = []
+//
+//        if let results = try? context.fetch(request) {
+//            for result in results {
+//                items.insert(result, at: 0)
+//            }
+//        }
+        
+//        items[indexPath.row].priority = value
         cell.priorityButton.setTitle(value, for: .normal)
+        
+//        do {
+//            try context.save()
+//        }
+//        catch let err {
+//            print(err)
+//        }
+        
+        
     }
     
     func setChecked(cell: ListItemCell) {
