@@ -8,8 +8,9 @@
 
 import UIKit
 
-protocol PriorityDelegate {
+protocol ListItemCellDelegate {
     func setPriorityLevel(cell: ListItemCell)
+    func setChecked(cell: ListItemCell)
 }
 
 
@@ -19,7 +20,7 @@ class ListItemCell: UITableViewCell {
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
     
-    var delegate: PriorityDelegate?
+    var delegate: ListItemCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,5 +40,10 @@ class ListItemCell: UITableViewCell {
 
     @IBAction func buttonTapped(_ sender: UIButton) {
         self.delegate?.setPriorityLevel(cell: self)
+    }
+    
+    
+    @IBAction func checkButtonTapped(_ sender: UIButton) {
+        self.delegate?.setChecked(cell: self)
     }
 }

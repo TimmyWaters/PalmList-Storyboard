@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MainListViewController: UITableViewController, PriorityDelegate, SaveButtonDelegate{
+class MainListViewController: UITableViewController, ListItemCellDelegate, SaveButtonDelegate{
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     var itemTF = UITextField()
@@ -17,7 +17,6 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
     var listItems: [PalmListItem] = []
     
     var cellIndexPath = 0
-    var priorityValue = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +57,7 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
         if let results = try? context.fetch(request) {
             for result in results {
                 listItems.insert(result, at: 0)
+                print(result.isChecked)
             }
         }
     }
@@ -68,21 +68,22 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) as! ListItemCell
+        cell.checkButton.isSelected = listItems[indexPath.row].isChecked
         cell.itemLabel.text = listItems[indexPath.row].itemText
         cell.delegate = self
-        cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(sender:)), for: .touchUpInside)
+//        cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(sender:)), for: .touchUpInside)
         
         return cell
     }
     
-    @objc func checkButtonClicked(sender: UIButton) {
-        if sender.isSelected {
-            sender.isSelected = false
-        }
-        else {
-            sender.isSelected = true
-        }
-    }
+//    @objc func checkButtonClicked(sender: UIButton) {
+//        if sender.isSelected {
+//            sender.isSelected = false
+//        }
+//        else {
+//            sender.isSelected = true
+//        }
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "segueID", sender: self)
@@ -182,7 +183,46 @@ class MainListViewController: UITableViewController, PriorityDelegate, SaveButto
         let indexPath = IndexPath(row: cellIndexPath, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! ListItemCell
         cell.priorityButton.setTitle(value, for: .normal)
-        priorityValue = value
+    }
+    
+    func setChecked(cell: ListItemCell) {
+        guard let indexPath = self.tableView.indexPath(for: cell) else {
+            // Note, this shouldn't happen - how did the user tap on a button that wasn't on screen?
+            return
+        }
+        let cell = tableView.cellForRow(at: indexPath) as! ListItemCell
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = PalmListItem.createFetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        var items: [PalmListItem] = []
+        
+        if let results = try? context.fetch(request) {
+            for result in results {
+                items.insert(result, at: 0)
+            }
+        }
+        
+        if cell.checkButton.isSelected {
+            cell.checkButton.isSelected = false
+            items[indexPath.row].isChecked = false
+//            listItems[indexPath.row].isChecked = false
+        }
+        else {
+            cell.checkButton.isSelected = true
+            items[indexPath.row].isChecked = true
+//            listItems[indexPath.row].isChecked = true
+        }
+        
+        do {
+            try context.save()
+        }
+        catch let err {
+            print(err)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -64,6 +64,9 @@
                                             </constraints>
                                             <state key="normal" title="Button" image="UnChecked"/>
                                             <state key="selected" image="Checked"/>
+                                            <connections>
+                                                <action selector="checkButtonTapped:" destination="xpv-xr-F0C" eventType="touchUpInside" id="jtf-Ie-mYP"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
