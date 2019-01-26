@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		A50B742921E2B14300C5C149 /* MainListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B742821E2B14300C5C149 /* MainListViewController.swift */; };
 		A50B742B21E2B17700C5C149 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B742A21E2B17700C5C149 /* ListItemCell.swift */; };
-		A50B742D21E2B19F00C5C149 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B742C21E2B19F00C5C149 /* DetailViewController.swift */; };
 		A513587D21F80297003A62E8 /* PalmListItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513587B21F80297003A62E8 /* PalmListItem+CoreDataClass.swift */; };
 		A513587E21F80297003A62E8 /* PalmListItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513587C21F80297003A62E8 /* PalmListItem+CoreDataProperties.swift */; };
 		A520296C21E2ADE8004C2415 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A520296B21E2ADE8004C2415 /* AppDelegate.swift */; };
@@ -23,7 +22,6 @@
 /* Begin PBXFileReference section */
 		A50B742821E2B14300C5C149 /* MainListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListViewController.swift; sourceTree = "<group>"; };
 		A50B742A21E2B17700C5C149 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
-		A50B742C21E2B19F00C5C149 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A513587B21F80297003A62E8 /* PalmListItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PalmListItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A513587C21F80297003A62E8 /* PalmListItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PalmListItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A520296821E2ADE8004C2415 /* PalmList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PalmList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +68,6 @@
 				A513587C21F80297003A62E8 /* PalmListItem+CoreDataProperties.swift */,
 				A520296B21E2ADE8004C2415 /* AppDelegate.swift */,
 				A50B742A21E2B17700C5C149 /* ListItemCell.swift */,
-				A50B742C21E2B19F00C5C149 /* DetailViewController.swift */,
 				A5C2815121E2EEDC0087ADE0 /* PriorityViewController.swift */,
 				A50B742821E2B14300C5C149 /* MainListViewController.swift */,
 				A520296F21E2ADE8004C2415 /* Main.storyboard */,
@@ -157,7 +154,6 @@
 				A50B742B21E2B17700C5C149 /* ListItemCell.swift in Sources */,
 				A50B742921E2B14300C5C149 /* MainListViewController.swift in Sources */,
 				A5C2815221E2EEDC0087ADE0 /* PriorityViewController.swift in Sources */,
-				A50B742D21E2B19F00C5C149 /* DetailViewController.swift in Sources */,
 				A520297421E2ADE8004C2415 /* PalmList.xcdatamodeld in Sources */,
 				A520296C21E2ADE8004C2415 /* AppDelegate.swift in Sources */,
 				A513587D21F80297003A62E8 /* PalmListItem+CoreDataClass.swift in Sources */,
