@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  PalmList
 //
-//  Created by Timothy Waters on 1/6/19.
+//  Created by Timothy Waters on 1/27/19.
 //  Copyright © 2019 Timmy Waters Software. All rights reserved.
 //
 
@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
+        UINavigationBar.appearance().barTintColor = UIColor.init(red: 0/255.0, green: 84.0/255.0, blue: 147.0/255.0, alpha: 1)
+        
         return true
     }
 
